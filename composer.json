@@ -1,0 +1,32 @@
+{
+    "name": "webignition/html-document-type-validator",
+    "description": "Check if a given HTML doctype string is valid",
+    "keywords": ["html", "document", "doctype", "validator"],
+    "homepage": "https://github.com/webignition/html-document-type-validator",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jon Cram",
+            "email": "jon@webignition.net"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "webignition\\Tests": "tests/",
+            "": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.3.2",
+        "webignition/html-document-type-parser":">=0.1.2,<1",
+        "webignition/html-document-type-generator":">=0.6.1,<1"
+
+    },            
+    "require-dev": {
+        "symfony/class-loader": "*",
+        "phpunit/phpunit": "3.7.*",
+        "icanboogie/inflector":"1.0"
+    },            
+    "minimum-stability":"stable"
+}
