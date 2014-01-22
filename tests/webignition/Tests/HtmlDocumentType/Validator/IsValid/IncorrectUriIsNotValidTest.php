@@ -4,18 +4,15 @@ namespace webignition\Tests\HtmlDocumentType\Validator\IsValid;
 
 use webignition\Tests\HtmlDocumentType\Validator\BaseTest;
 
-class StandardDoctypesAreValidTest extends BaseTest {
+class IncorrectUriIsNotValidTest extends BaseTest {
     
     public function setUp() {
         parent::setUp();        
-        $this->assertTrue($this->getValidator()->isValid($this->getCurrentTestDoctype()));
+        $this->assertFalse($this->getValidator()->isValid(
+            str_replace('http://', 'HTTP://', $this->getCurrentTestDoctype())
+        ));
     }
 
-    public function testHtml_2() {}
-    public function testHtml_2_Alternative() {}    
-    public function testHtml_32() {}
-    public function testHtml_32_Alternative1() {}
-    public function testHtml_32_Alternative2() {}
     public function testHtml_4_Strict() {}
     public function testHtml_4_Strict_Alternative() {}
     public function testHtml_4_Strict_401_Alternative1() {}
@@ -46,8 +43,6 @@ class StandardDoctypesAreValidTest extends BaseTest {
     public function testHtml_401_Frameset_Alternative1() {}
     public function testHtml_401_Frameset_Alternative2() {}
     public function testHtml_401_Frameset_Alternative3() {}    
-    public function testHtml_5() {}
-    public function testHtml_5_Legacy_Compat() {}
     public function testXhtml_1_Strict() {}
     public function testXhtml_1_Strict_Alternative1() {}
     public function testXhtml_1_Strict_Alternative2() {}
@@ -87,6 +82,4 @@ class StandardDoctypesAreValidTest extends BaseTest {
     public function testHtml_Rdfa_401_1() {}
     public function testHtml_Rdfa_401_11() {}
     public function testHtml_Rdfalite_401_11() {}
-    public function testHtml_ISO15445_1() {}
-    public function testHtml_ISO15445_1_Alternative() {} 
 }
