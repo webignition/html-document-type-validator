@@ -4,7 +4,7 @@ namespace webignition\Tests\HtmlDocumentType\Validator\IsValid;
 
 use webignition\Tests\HtmlDocumentType\Validator\BaseTest;
 
-class StandardDoctypeTest extends BaseTest {
+class StandardDoctypesAreValidTest extends BaseTest {
     
     public function setUp() {
         parent::setUp();
