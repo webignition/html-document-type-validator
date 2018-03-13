@@ -1,59 +1,76 @@
 <?php
+
 namespace webignition\HtmlDocumentType;
 
-class Validator {     
+use webignition\HtmlDocumentType\Parser\Parser;
 
+class Validator
+{
     const DOCTYPE_HTML5_LEGACY_COMPAT_URI = 'about:legacy-compat';
-    
+
+    const MODE_STRICT = 'strict';
+    const MODE_IGNORE_FPI_URI_VALIDITY = 'loose';
+
     /**
-     *
      * @var string
      */
     private $doctypeString = null;
-    
-    
+
     /**
-     *
      * @var array
      */
     private $fpiList = null;
-    
-    
-    private $fpi = null;
-    private $uri = null;
-    
-    
+
     /**
-     *
-     * @var \webignition\HtmlDocumentType\Parser\Parser
+     * @var string
+     */
+    private $fpi = null;
+
+    /**
+     * @var string
+     */
+    private $uri = null;
+
+    /**
+     * @var Parser
      */
     private $parser = null;
-    
-    
+
     /**
-     *
-     * @var \webignition\HtmlDocumentType\Generator
+     * @var Generator
      */
     private $generator = null;
-    
-    
+
     /**
-     *
-     * @var \webignition\HtmlDocumentType\FpiToUriMap
+     * @var FpiToUriMap
      */
     private $fpiToUriMap = null;
-    
-    
+
+    /**
+     * @var string
+     */
+    private $mode = self::MODE_STRICT;
+
+    /**
+     * @param $mode
+     */
+    public function setMode($mode)
+    {
+        $this->mode = $mode;
+    }
+
     /**
      * Is the given doctype 100% valid?
      * Is valid if the FPI is known and the URI matches exactly
-     * 
+     *
      * @param string $doctypeString
-     * @return boolean
+     *
+     * @return bool
      */
-    public function isValid($doctypeString) {        
+    public function isValid($doctypeString)
+    {
         $this->doctypeString = trim($doctypeString);
-        
+
         try {
             $this->getParser()->setSourceDoctype($this->doctypeString);
             $this->fpi = $this->getParser()->getFpi();
@@ -61,111 +78,108 @@ class Validator {
         } catch (\RuntimeException $runtimeException) {
             return false;
         }
-        
+
         if (!$this->hasFpi() && ! $this->hasUri()) {
             return true;
         }
-        
+
         if ($this->hasValidFpi() && !$this->hasUri()) {
             return true;
         }
-        
+
         if (!$this->hasFpi() && $this->uri === self::DOCTYPE_HTML5_LEGACY_COMPAT_URI) {
             return true;
         }
-        
+
+        if (self::MODE_IGNORE_FPI_URI_VALIDITY === $this->mode) {
+            return true;
+        }
+
         return $this->hasValidUriForFpi();
-    }    
-    
-    
+    }
+
     /**
-     * 
-     * @return boolean
+     *
+     * @return bool
      */
-    private function hasValidFpi() {
+    private function hasValidFpi()
+    {
         if (is_null($this->fpi)) {
             return false;
         }
-        
+
         return in_array($this->fpi, $this->getFpiList());
     }
-    
-    
+
     /**
-     * 
-     * @return boolean
+     * @return bool
      */
-    private function hasValidUriForFpi() {        
+    private function hasValidUriForFpi()
+    {
         return in_array($this->uri, $this->getFpiToUriMap()->getForFpi($this->fpi));
     }
-    
-    
+
     /**
-     * 
      * @return array
      */
-    private function getFpiList() {
+    private function getFpiList()
+    {
         if (is_null($this->fpiList)) {
             $this->fpiList = $this->getGenerator()->getFpis();
         }
-        
+
         return $this->fpiList;
     }
-    
-    
+
     /**
-     * 
-     * @return \webignition\HtmlDocumentType\Generator
+     * @return Generator
      */
-    private function getGenerator() {
+    private function getGenerator()
+    {
         if (is_null($this->generator)) {
-            $this->generator = new Generator();            
+            $this->generator = new Generator();
         }
-        
+
         return $this->generator;
     }
 
     /**
-     * 
-     * @return boolean
+     * @return bool
      */
-    private function hasFpi() {
+    private function hasFpi()
+    {
         return !is_null($this->fpi);
-    }    
-    
-    
+    }
+
     /**
-     * 
-     * @return boolean
+     * @return bool
      */
-    private function hasUri() {
+    private function hasUri()
+    {
         return !is_null($this->uri);
     }
-    
-    
+
     /**
-     * 
-     * @return \webignition\HtmlDocumentType\Parser\Parser
+     * @return Parser
      */
-    private function getParser() {
+    private function getParser()
+    {
         if (is_null($this->parser)) {
-            $this->parser = new \webignition\HtmlDocumentType\Parser\Parser();
+            $this->parser = new Parser();
         }
-        
+
         return $this->parser;
     }
-    
-    
+
     /**
-     * 
-     * @return \webignition\HtmlDocumentType\FpiToUriMap
+     * @return FpiToUriMap
      */
-    private function getFpiToUriMap() {
+    private function getFpiToUriMap()
+    {
         if (is_null($this->fpiToUriMap)) {
             $this->fpiToUriMap = new FpiToUriMap();
         }
-        
+
         return $this->fpiToUriMap;
     }
-    
 }
