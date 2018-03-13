@@ -90,12 +90,12 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
     public function docTypeDataProvider()
     {
         return [
-//            'html-2' => [
-//                'docTypeString' => '<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">',
-//            ],
-//            'html-32' => [
-//                'docTypeString' => '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">',
-//            ],
+            'html-2' => [
+                'docTypeString' => '<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">',
+            ],
+            'html-32' => [
+                'docTypeString' => '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">',
+            ],
             'html-4-strict' => [
                 'docTypeString' => '<!DOCTYPE html PUBLIC '
                     .'"-//W3C//DTD HTML 4.0//EN" '

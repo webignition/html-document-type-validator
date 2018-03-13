@@ -4,53 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4944bed0c7e4538d76f3bd51a03d920e",
+    "content-hash": "8550ddab4eed076a5f7ea900e1c83ba5",
     "packages": [
-        {
-            "name": "webignition/html-document-type-generator",
-            "version": "0.6.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webignition/html-document-type-generator.git",
-                "reference": "f52f5ea8d31f60dfa01b3c79cac995c42996cd54"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webignition/html-document-type-generator/zipball/f52f5ea8d31f60dfa01b3c79cac995c42996cd54",
-                "reference": "f52f5ea8d31f60dfa01b3c79cac995c42996cd54",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "symfony/class-loader": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "webignition\\Tests": "tests/",
-                    "": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jon Cram",
-                    "email": "jon@webignition.net"
-                }
-            ],
-            "description": "Generate a doctype for a given HTML version and variant",
-            "homepage": "https://github.com/webignition/html-document-type-generator",
-            "keywords": [
-                "doctype",
-                "document",
-                "generator",
-                "html"
-            ],
-            "time": "2014-01-22T15:42:49+00:00"
-        },
         {
             "name": "webignition/html-document-type-parser",
             "version": "0.1.3",

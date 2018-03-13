@@ -6,6 +6,9 @@ use webignition\HtmlDocumentType\Parser\Parser;
 
 class Validator
 {
+    use FpiToUrlMapTrait;
+    use FpiListTrait;
+
     const DOCTYPE_HTML5_LEGACY_COMPAT_URI = 'about:legacy-compat';
 
     const MODE_STRICT = 'strict';
@@ -15,11 +18,6 @@ class Validator
      * @var string
      */
     private $doctypeString = null;
-
-    /**
-     * @var array
-     */
-    private $fpiList = null;
 
     /**
      * @var string
@@ -35,16 +33,6 @@ class Validator
      * @var Parser
      */
     private $parser = null;
-
-    /**
-     * @var Generator
-     */
-    private $generator = null;
-
-    /**
-     * @var FpiToUriMap
-     */
-    private $fpiToUriMap = null;
 
     /**
      * @var string
@@ -108,7 +96,7 @@ class Validator
             return false;
         }
 
-        return in_array($this->fpi, $this->getFpiList());
+        return in_array($this->fpi, $this->fpiList);
     }
 
     /**
@@ -116,31 +104,9 @@ class Validator
      */
     private function hasValidUriForFpi()
     {
-        return in_array($this->uri, $this->getFpiToUriMap()->getForFpi($this->fpi));
-    }
+        $foo = (isset($this->fpiToUriMap[$this->fpi])) ? $this->fpiToUriMap[$this->fpi] : array();
 
-    /**
-     * @return array
-     */
-    private function getFpiList()
-    {
-        if (is_null($this->fpiList)) {
-            $this->fpiList = $this->getGenerator()->getFpis();
-        }
-
-        return $this->fpiList;
-    }
-
-    /**
-     * @return Generator
-     */
-    private function getGenerator()
-    {
-        if (is_null($this->generator)) {
-            $this->generator = new Generator();
-        }
-
-        return $this->generator;
+        return in_array($this->uri, $foo);
     }
 
     /**
@@ -169,17 +135,5 @@ class Validator
         }
 
         return $this->parser;
-    }
-
-    /**
-     * @return FpiToUriMap
-     */
-    private function getFpiToUriMap()
-    {
-        if (is_null($this->fpiToUriMap)) {
-            $this->fpiToUriMap = new FpiToUriMap();
-        }
-
-        return $this->fpiToUriMap;
     }
 }
