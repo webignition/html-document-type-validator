@@ -1,4 +1,1 @@
-html-document-type-validator
-============================
-
-Check if a given HTML doctype string is valid
+This package has been abandoned and superseded by [webignition/html-document-type](https://github.com/webignition/html-document-type)
